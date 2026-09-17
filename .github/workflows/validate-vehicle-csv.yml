@@ -1,0 +1,26 @@
+name: Validate vehicle CSV
+
+on:
+  push:
+    paths:
+      - "data/autoevolution_vehicle_updates.csv"
+      - "scripts/validate_vehicle_csv.mjs"
+      - ".github/workflows/validate-vehicle-csv.yml"
+  pull_request:
+    paths:
+      - "data/autoevolution_vehicle_updates.csv"
+      - "scripts/validate_vehicle_csv.mjs"
+      - ".github/workflows/validate-vehicle-csv.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/validate_vehicle_csv.mjs
